@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+apply from: "../buildType.gradle"
+def path_pre = "${rootDir}/vpn_core/ics-openvpn"
+android {
+    namespace 'de.blinkt.openvpn'
+    flavorDimensions "version"
+    productFlavors {
+        skeleton {
+            buildConfigField("boolean", "openvpn3", "false")
+        }
+    }
+    sourceSets {
+        skeleton {
+            manifest.srcFile "${path_pre}/main/src/main/java/de/blinkt/openvpn/custom/AndroidManifest.xml"
+        }
+        main {
+            aidl.srcDirs = [
+                    "${path_pre}/main/src/main/aidl"
+            ]
+            java.srcDirs = [
+                    "${rootDir}/vpn-openvpn/src/main/java",
+                    "${path_pre}/main/src/main/java",
+                    "${path_pre}/main/src/skeleton/java"
+            ]
+            res.srcDirs = [
+                    "${path_pre}/main/src/main/res",
+                    "${path_pre}/main/src/skeleton/res"
+            ]
+            manifest.srcFile "${path_pre}/main/src/main/AndroidManifest.xml"
+        }
+    }
+}
+dependencies {
+    api project(":vpn-provider")
+}

@@ -1,0 +1,51 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+def loadLocalProperties(String key) {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    return properties.getProperty(key)
+}
+
+android {
+    namespace 'com.github.vpn.merge'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.github.vpn.merge"
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion rootProject.ext.minSdkVersion
+        versionCode 1
+        versionName "1.0"
+        buildConfigField "String", "OPEN_VPN_UDP", "\"${loadLocalProperties("OPEN_VPN_UDP")}\""
+        buildConfigField "String", "IKEV2_CERT", "\"${loadLocalProperties("IKEV2_CERT")}\""
+        buildConfigField "String", "IKEV2_IP", "\"${loadLocalProperties("IKEV2_IP")}\""
+        buildConfigField "String", "IKEV2_SERVER_ID", "\"${loadLocalProperties("IKEV2_SERVER_ID")}\""
+        buildConfigField "String", "IKEV2_USER_NAME", "\"${loadLocalProperties("IKEV2_USER_NAME")}\""
+        buildConfigField "String", "IKEV2_PASS_WORD", "\"${loadLocalProperties("IKEV2_PASS_WORD")}\""
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    packagingOptions {
+        jniLibs {
+            //# fixed app bundle openvpn .so bugs
+            useLegacyPackaging = true
+        }
+        exclude "DebugProbesKt.bin"
+    }
+}
+dependencies {
+    api project(":vpn-openvpn")
+    api project(":vpn-strongswan")
+}

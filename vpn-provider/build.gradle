@@ -1,0 +1,17 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+apply from: "../buildType.gradle"
+android {
+    namespace 'com.github.vpn.provider'
+}
+dependencies {
+    api 'androidx.core:core-ktx:1.9.0'
+    api 'androidx.appcompat:appcompat:1.5.1'
+    api 'com.google.android.material:material:1.7.0'
+    api 'androidx.constraintlayout:constraintlayout:2.1.4'
+    api 'androidx.preference:preference:1.2.0'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+}

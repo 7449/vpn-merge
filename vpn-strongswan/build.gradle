@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+apply from: "../buildType.gradle"
+def path_pre = "${rootDir}/vpn_core/strongswan"
+android {
+    namespace 'org.strongswan.android'
+    buildFeatures {
+        viewBinding = false
+    }
+    flavorDimensions "version"
+    productFlavors {
+        nolauncher {}
+    }
+    sourceSets {
+        nolauncher {
+            manifest.srcFile "${path_pre}/src/frontends/android/app/src/main/java/org/strongswan/android/custom/AndroidManifest.xml"
+        }
+        main {
+            java.srcDirs = [
+                    "${rootDir}/vpn-strongswan/src/main/java",
+                    "${path_pre}/src/frontends/android/app/src/main/java",
+            ]
+            res.srcDirs = [
+                    "${path_pre}/src/frontends/android/app/src/main/res",
+            ]
+            manifest.srcFile "${path_pre}/src/frontends/android/app/src/main/AndroidManifest.xml"
+        }
+    }
+}
+dependencies {
+    api project(":vpn-provider")
+}

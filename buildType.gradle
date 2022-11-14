@@ -1,0 +1,21 @@
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion rootProject.ext.minSdkVersion
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}

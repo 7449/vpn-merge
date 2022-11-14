@@ -1,0 +1,8 @@
+[submodule "vpn_core/ics-openvpn"]
+	path = vpn_core/ics-openvpn
+	url = https://github.com/7449/ics-openvpn.git
+	branch = custom
+[submodule "vpn_core/strongswan"]
+	path = vpn_core/strongswan
+	url = https://github.com/7449/strongswan.git
+	branch = custom
