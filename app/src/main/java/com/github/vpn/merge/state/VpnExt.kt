@@ -36,7 +36,7 @@ fun Context.startOpenVpn(
     }
     vp.mProfileCreator = packageName
     ProfileManager.setTemporaryProfile(this, vp)
-    val startVPN = vp.prepareStartService(this)
+    val startVPN = vp.getStartServiceIntent(this, null)
     startVPN.putExtra(OpenVPNService.ALWAYS_SHOW_NOTIFICATION, alwaysShowNotification)
     ContextCompat.startForegroundService(this, startVPN)
 }
